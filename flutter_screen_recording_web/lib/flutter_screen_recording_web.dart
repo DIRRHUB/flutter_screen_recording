@@ -4,10 +4,10 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 
-import 'interop/get_display_media.dart';
-
 import 'package:flutter_screen_recording_platform_interface/flutter_screen_recording_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+
+import 'interop/get_display_media.dart';
 
 class WebFlutterScreenRecording extends FlutterScreenRecordingPlatform {
   MediaStream? stream;
@@ -77,9 +77,9 @@ class WebFlutterScreenRecording extends FlutterScreenRecordingPlatform {
         print("blob size: ${recordedChunks?.size ?? 'empty'}");
       });
 
-      this.stream!.getVideoTracks()[0].addEventListener('ended', (Event event)  {
-         //If user stop sharing screen, stop record
-         stopRecordScreen;
+      this.stream!.getVideoTracks()[0].addEventListener('ended', (Event event) {
+        //If user stop sharing screen, stop record
+        stopRecordScreen;
       });
 
       this.mediaRecorder!.start();
@@ -95,21 +95,19 @@ class WebFlutterScreenRecording extends FlutterScreenRecordingPlatform {
   Future<String> get stopRecordScreen {
     final c = new Completer<String>();
     this.mediaRecorder!.addEventListener("stop", (event) {
-
       mediaRecorder = null;
       this.stream!.getTracks().forEach((element) => element.stop());
       this.stream = null;
-      final a = document.createElement("a") as AnchorElement;
-      final url = Url.createObjectUrl(
-          new Blob(List<dynamic>.from([recordedChunks]), mimeType));
-      document.body!.append(a);
-      a.style.display = "none";
+//      final a = document.createElement("a") as AnchorElement;
+      final url = Url.createObjectUrl(new Blob(List<dynamic>.from([recordedChunks]), mimeType));
+      // document.body!.append(a);
+      /*  a.style.display = "none";
       a.href = url;
       a.download = this.name;
-      a.click();
-      Url.revokeObjectUrl(url);
+      a.click(); */
+      /* Url.revokeObjectUrl(url); */
 
-      c.complete(this.name);
+      c.complete(url);
     });
     mediaRecorder!.stop();
     return c.future;
