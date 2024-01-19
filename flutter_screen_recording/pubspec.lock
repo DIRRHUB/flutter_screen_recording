@@ -89,11 +89,12 @@ packages:
   flutter_screen_recording_web:
     dependency: "direct main"
     description:
-      name: flutter_screen_recording_web
-      sha256: "1dedf6e067b4c23b8c357200e6fa811ab9a894371721b31bac027bd7c06a4b6e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4"
+      path: flutter_screen_recording_web
+      ref: master
+      resolved-ref: "571d5453ea4d4f73c84fda3244ca614856ac9a87"
+      url: "https://github.com/DIRRHUB/flutter_screen_recording.git"
+    source: git
+    version: "1.0.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
